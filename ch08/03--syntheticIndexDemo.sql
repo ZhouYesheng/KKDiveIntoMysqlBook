@@ -21,3 +21,10 @@ INSERT INTO t
 
 #查询合成索引字段
 SELECT * FROM t WHERE hash_value=MD5(REPEAT('beijing 2008',2));
+
+#创建表 t 前缀索引
+#用于模糊匹配
+CREATE INDEX idx_blob ON t(context(100));
+
+#查询模糊匹配前缀索引
+SELECT * FROM t WHERE context LIKE 'beijing%';

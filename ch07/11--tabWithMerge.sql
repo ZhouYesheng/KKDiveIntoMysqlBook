@@ -2,23 +2,26 @@
 #Merge存储引擎的表
 ###
 #创建基于 MyISAM 存储引擎的表 payment_2006
+DROP TABLE IF EXISTS payment_2006;
 CREATE TABLE payment_2006(
-	country_id SMALLINT,
+	payment_id SMALLINT,
 	payment_date DATETIME,
 	amount DECIMAL(15,2)
 ) ENGINE=MyISAM;
 
 #创建基于 MyISAM 存储引擎的表 payment_2007
+DROP TABLE IF EXISTS payment_2007;
 CREATE TABLE payment_2007(
-	country_id SMALLINT,
+	payment_id SMALLINT,
 	payment_date DATETIME,
 	amount DECIMAL(15,2)
 ) ENGINE=MyISAM;
 
 #创建基于 MERGE 存储引擎的表 payment_all
 #合并表 payment_2006,payment_2007
+DROP TABLE IF EXISTS payment_all;
 CREATE TABLE payment_all(
-	country_id SMALLINT,
+	payment_id SMALLINT,
 	payment_date DATETIME,
 	amount DECIMAL(15,2)
 ) ENGINE=MERGE UNION=(payment_2006,payment_2007)

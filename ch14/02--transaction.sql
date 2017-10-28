@@ -15,6 +15,10 @@ INSERT INTO actor VALUES(1,'xiaoming','wangbadan');
 #查询演员表 actor
 SELECT * FROM actor;
 
+#删除表纪录 actor
+DELETE FROM actor;
+
+
 #开启事务
 START TRANSACTION;
 

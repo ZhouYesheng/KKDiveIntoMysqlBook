@@ -55,3 +55,6 @@ CALL actor_insert_handler();
 #查询过程变量 @x,@X2
 SELECT @x,@X2;
 
+
+
+

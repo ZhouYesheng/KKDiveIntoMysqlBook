@@ -19,3 +19,23 @@ PARTITION BY LIST(category)
 
 #查询表 expenses
 SELECT * FROM expenses;
+
+#创建表 expenses
+#——》LIST COLUMNS 支持非整数列的分区
+DROP TABLE IF EXISTS expenses;
+CREATE TABLE expenses(
+	expense_date DATE NOT NULL,
+	category VARCHAR(30),
+	amount DECIMAL(10,3)
+)
+PARTITION BY LIST COLUMNS(category)
+(
+	PARTITION p0 VALUES IN ('lodging','food'),
+	PARTITION p1 VALUES IN ('flights','ground transportation'),
+	PARTITION p2 VALUES IN ('leisure','customer entertainment'),
+	PARTITION p3 VALUES IN ('communications'),
+	PARTITION p4 VALUES IN ('fees')
+);
+
+#查询表 expenses
+SELECT * FROM expenses;

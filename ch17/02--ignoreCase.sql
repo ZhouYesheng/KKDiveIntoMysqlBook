@@ -1,0 +1,11 @@
+####
+#分区标识符不区分大小写
+###
+#创建表 t2
+DROP TABLE IF EXISTS t2;
+CREATE TABLE t2(val INT)
+	PARTITION BY LIST(val)
+	(
+		PARTITION MYPART VALUES IN (1,3,5),
+		PARTITION mypart VALUES IN (2,4,6)
+	);

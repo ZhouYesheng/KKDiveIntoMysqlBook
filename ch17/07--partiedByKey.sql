@@ -1,0 +1,56 @@
+####
+# KEY 分区
+###
+
+#创建分区表 emp
+#——》KEY分区
+DROP TABLE IF EXISTS emp;
+CREATE TABLE emp(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL
+)
+PARTITION BY KEY(job) PARTITIONS 4;
+
+#查看表 emp
+SELECT * FROM emp;
+
+
+
+#创建分区表 emp
+#——》KEY分区，默认主键分区
+DROP TABLE IF EXISTS emp;
+CREATE TABLE emp(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL,
+	PRIMARY KEY(id)
+)
+PARTITION BY KEY() PARTITIONS 4;
+
+#查看表 emp
+SELECT * FROM emp;
+
+
+#创建分区表 emp
+#——》KEY分区，默认主键分区，无主键时，使用唯一键分区
+DROP TABLE IF EXISTS emp;
+CREATE TABLE emp(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL,
+	UNIQUE KEY(id)
+)
+PARTITION BY KEY() PARTITIONS 4;
+
+#查看表 emp
+SELECT * FROM emp;

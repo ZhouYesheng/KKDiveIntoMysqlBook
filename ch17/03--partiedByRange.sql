@@ -52,3 +52,31 @@ PARTITION BY RANGE(YEAR(separated))
 
 #查询表 emp_date
 SELECT * FROM emp_date;
+
+#创建分区表 emp_date
+#——》支持非整数列的分区
+DROP TABLE IF EXISTS emp_date;
+CREATE TABLE emp_date(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL
+)
+PARTITION BY RANGE COLUMNS(separated)
+(
+	PARTITION p0 VALUES LESS THAN ('1996-01-01'),
+	PARTITION p1 VALUES LESS THAN ('2001-01-01'),
+	PARTITION p2 VALUES LESS THAN ('2006-01-01')
+);
+
+#查询表 emp_date
+SELECT * FROM emp_date;
+
+
+
+
+
+
+

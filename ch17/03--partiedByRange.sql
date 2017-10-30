@@ -1,0 +1,54 @@
+####
+#范围分区Range
+###
+#创建分区表 emp
+DROP TABLE IF EXISTS emp;
+CREATE TABLE emp(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL
+)
+PARTITION BY RANGE(store_id)
+(
+	PARTITION p0 VALUES LESS THAN (10),
+	PARTITION p1 VALUES LESS THAN (20),
+	PARTITION p2 VALUES LESS THAN (30)
+);
+
+
+#查询表 emp
+SELECT * FROM emp;
+
+#修改添加最大分区极值
+ALTER TABLE emp ADD PARTITION
+	(PARTITION p3 VALUES LESS THAN MAXVALUE);
+
+#插入大于范围的记录
+#——》可以插入，因为有最大值分区
+INSERT INTO emp(id,ename,hired,job,store_id)
+	VALUES('7934','MILLER','1982-01-23','CLERK',50);
+
+
+#创建分区表 emp_date
+#——》分区支持表达式
+DROP TABLE IF EXISTS emp_date;
+CREATE TABLE emp_date(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL
+)
+PARTITION BY RANGE(YEAR(separated))
+(
+	PARTITION p0 VALUES LESS THAN (1995),
+	PARTITION p1 VALUES LESS THAN (2000),
+	PARTITION p2 VALUES LESS THAN (2005)
+);
+
+#查询表 emp_date
+SELECT * FROM emp_date;

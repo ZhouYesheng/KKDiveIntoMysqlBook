@@ -1,0 +1,51 @@
+####
+#分区表
+###
+#创建分区表 emp
+DROP TABLE IF EXISTS emp;
+CREATE TABLE emp(
+	empid INT,
+	salary DECIMAL(7,2),
+	birth_date DATE
+) ENGINE=InnoDB
+	PARTITION BY HASH(MONTH(birth_date))
+	PARTITIONS 6;
+
+
+#创建分区表 emp
+#——》不能使用非主键或唯一键建立分区表
+DROP TABLE IF EXISTS emp;
+CREATE TABLE emp(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL,
+	PRIMARY KEY(id)
+)
+PARTITION BY RANGE(store_id)
+(
+	PARTITION p0 VALUES LESS THAN (10),
+	PARTITION p1 VALUES LESS THAN (20),
+	PARTITION p2 VALUES LESS THAN (30)
+);
+
+#创建分区表 emp
+#——》无主键或唯一键时，可以使用普通字段分区
+DROP TABLE IF EXISTS emp;
+CREATE TABLE emp(
+	id INT NOT NULL,
+	ename VARCHAR(30),
+	hired DATE NOT NULL DEFAULT '1970-01-01',
+	separated DATE NOT NULL DEFAULT '9999-12-31',
+	job VARCHAR(30) NOT NULL,
+	store_id INT NOT NULL
+)
+PARTITION BY RANGE(store_id)
+(
+	PARTITION p0 VALUES LESS THAN (10),
+	PARTITION p1 VALUES LESS THAN (20),
+	PARTITION p2 VALUES LESS THAN (30)
+);
+

@@ -39,3 +39,33 @@ PARTITION BY LIST COLUMNS(category)
 
 #查询表 expenses
 SELECT * FROM expenses;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

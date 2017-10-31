@@ -42,4 +42,21 @@ SELECT * FROM tb_list;
 INSERT INTO tb_list VALUES(NULL,'NULL');
 
 
+#创建表 tb_list
+#LIST 分区定义包含 NULL 值时，插入 NULL 值是可以的
+DROP TABLE IF EXISTS tb_list;
+CREATE TABLE tb_list(
+	id INT,
+	name VARCHAR(5)
+)
+PARTITION BY LIST(id)
+(
+	PARTITION p1 VALUES IN (0,NULL),
+	PARTITION p2 VALUES IN (1)
+);
 
+#查询表 tb_list
+SELECT * FROM tb_list;
+
+#插入 NULL 值会报错
+INSERT INTO tb_list VALUES(NULL,'NULL');

@@ -1,0 +1,23 @@
+####
+#分区中的NULL值处理
+###
+#创建表 tb_range
+#RANGE 分区中的 NULL 值会被当作最小值
+DROP TABLE IF EXISTS tb_range;
+CREATE TABLE tb_range(
+	id INT,
+	name VARCHAR(5)
+)
+PARTITION BY RANGE(id)
+(
+	PARTITION p0 VALUES LESS THAN (-6),
+	PARTITION p1 VALUES LESS THAN (0),
+	PARTITION p2 VALUES LESS THAN (1),
+	PARTITION p3 VALUES LESS THAN MAXVALUE
+);
+
+#查询表 tb_range
+SELECT * FROM tb_range;
+
+#插入 NULL 值
+INSERT INTO tb_range VALUES(NULL,'NULL');

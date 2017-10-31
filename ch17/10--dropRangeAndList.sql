@@ -55,11 +55,22 @@ SHOW CREATE TABLE emp_date;
 SELECT * FROM emp_date
 	WHERE separated BETWEEN '2000-01-01' AND '2004-12-31';
 
+#统计表 emp_date 的剩余记录数
+SELECT count(1) FROM emp_date;
+
+#查询分区数据
+SELECT partition_name part,
+	partition_expression expr,
+	partition_description descr,
+	table_rows
+	FROM information_schema.partitions
+	WHERE TABLE_SCHEMA=SCHEMA() AND TABLE_NAME='emp_date';
 
 
-
-
-
+#插入测试数据 emp_date
+#——》该记录将落入分区 p3
+INSERT INTO emp_date(id,ename,hired,separated,job,store_id)
+	VALUES(7566,'JONES','1981-04-02','2000-08-01','MANAGER',20);
 
 
 

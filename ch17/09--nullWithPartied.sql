@@ -60,3 +60,19 @@ SELECT * FROM tb_list;
 
 #插入 NULL 值会报错
 INSERT INTO tb_list VALUES(NULL,'NULL');
+
+#创建表 tb_hash
+#HASH 分区的 NULL 值会被当做零值
+DROP TABLE IF EXISTS tb_hash;
+CREATE TABLE tb_hash(
+	id INT,
+	name VARCHAR(5)
+)
+PARTITION BY HASH(id)
+PARTITIONS 2;
+
+#查询表 tb_hash
+SELECT * FROM tb_hash;
+
+#插入 NULL 值会报错
+INSERT INTO tb_hash VALUES(NULL,'NULL');

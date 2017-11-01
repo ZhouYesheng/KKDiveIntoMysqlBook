@@ -61,6 +61,58 @@ EXPLAIN EXTENDED
 #显示警告
 SHOW WARNINGS \G
 
+####
+#-------------------EXPLAIN PARTITIONS 查询SQL访问的分区
+###
+#创建 HASH 分区表 customer_part
+DROP TABLE IF EXISTS customer_part;
+CREATE TABLE customer_part(
+	customer_id SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+	store_id TINYINT(3) UNSIGNED NOT NULL,
+	first_name VARCHAR(45) NOT NULL,
+	last_name VARCHAR(45) NOT NULL,
+	email VARCHAR(50) DEFAULT NULL,
+	address_id SMALLINT(5) UNSIGNED NOT NULL,
+	active TINYINT(1) NOT NULL DEFAULT 1,
+	create_date DATETIME NOT NULL,
+	last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY(customer_id)
+)
+PARTITION BY HASH(customer_id) PARTITIONS 8;
+
+#查询 customer_part
+SELECT * FROM customer_part;
+
+#复制表 customer 的数据到 customer_part
+INSERT INTO customer_part
+	SELECT * FROM customer;
+
+#EXPLAIN PARTITIONS 查看SQL访问的分区
+EXPLAIN PARTITIONS
+	SELECT * FROM customer_part
+		WHERE customer_id=130 \G
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

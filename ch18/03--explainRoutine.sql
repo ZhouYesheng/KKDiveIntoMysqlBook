@@ -53,7 +53,13 @@ EXPLAIN
 EXPLAIN
 	SELECT 1 \G
 
+#扩展版 EXPLAIN
+EXPLAIN EXTENDED
+	SELECT SUM(amount) FROM customer a,payment b
+		WHERE 1=1 AND a.customer_id =b.customer_id AND email='JANE.BENNETT@sakilacustomer.org' \G
 
+#显示警告
+SHOW WARNINGS \G
 
 
 

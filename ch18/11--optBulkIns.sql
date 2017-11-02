@@ -28,3 +28,20 @@ LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/film_text2.txt' 
 
 #开启非唯一索引
 ALTER TABLE film_text2 ENABLE KEYS;
+
+
+####
+#---------------InnoDB存储引擎批量导入优化--临时关闭唯一性校验和自动提交
+###
+
+#导入前，关闭唯一性校验
+SET UNIQUE_CHECKS=0;
+
+#导入后，关闭唯一性校验
+SET UNIQUE_CHECKS=1;
+
+#导入前，关闭自动提交
+SET AUTOCOMMIT=0;
+
+#导入后，打开自动提交
+SET AUTOCOMMIT=1;
